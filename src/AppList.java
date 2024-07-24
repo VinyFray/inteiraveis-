@@ -1,30 +1,30 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class AppList {
     public static void main(String[] args) {
-        List<String> nomesExemplo = new ArrayList<>();
-        nomesExemplo.add("Vinicius");
-        nomesExemplo.add("Marco");
-        nomesExemplo.add("Juliete");
+        List<String> nomes = new ArrayList<>();
 
-        List<String> nomesOutroExemplo = List.of("Marco", "Byonce", "Ronaldo");
+        boolean execute = true;
+        while (execute){
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Digite um nome");
+            String nome = scanner.nextLine();
+            nomes.add(nome);
 
-        List<List<String>> exemplo = new ArrayList<>();
-        exemplo.add(List.of("V", "F", "V"));
-        exemplo.add(List.of("F", "V", "F"));
-
-        List<List<String>> outroExemplo = List.of(List.of("V", "F", "V"), List.of("F", "V", "F"));
-
-
-        for (String nome : nomesExemplo){
-            System.out.println(nome);
+            System.out.println("Digite 1 para sair e sortear ou 2 para continuar adicionando nomes");
+            int control = scanner.nextInt();
+            if(control == 1 ) execute = false;
         }
 
-        for(List<String> list : outroExemplo){
-            for(String nota : list){
-                System.out.println(nota);
-            }
-        }
+        int numeroAleatorio = (int)(Math.random()*nomes.size());
+
+        //Faça um programa que pegue um nome aleatorio dentro de uma lista.
+        //Melhoria do programa, permita que o usuario digite os nomes a serem sorteados
+
+        System.out.println(nomes.get(numeroAleatorio));
     }
+
+
 }
