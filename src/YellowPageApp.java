@@ -22,39 +22,59 @@ public class YellowPageApp {
 
         boolean control = true;
         while (control){
-            int menu = scanner("Digite: \n 1 para adicionar nome e telefone \n 2 para buscar por nome \n 0 para sair " +
-                    "\n 3 para ver lista completa").nextInt();
+            showMenu();
+            int menu = scanner("").nextInt();
             if(menu == 1) {
-                String nome = scanner("Digite o nome e sobrenome").nextLine();
-                if (!names.contains(nome)) names.add(nome);
-
-                String phoneNumber = scanner("Digite o digite o telefone").next();
-                phoneNumber = phoneNumber.replaceAll("-", "");
-
-                if (phoneNumber.length() == 11) {
-                    if (!phonesNumbers.contains(phoneNumber)) {
-                        phonesNumbers.add(phoneNumber);
-                    }
-                } else {
-                    System.out.println("Numero invalido");
-                }
+                addDatas(names, phonesNumbers);
             } else if (menu == 2){
-                String nameToFind = scanner("Digite um nome para buscar").nextLine();
-                for(String listName : names){
-                    if (nameToFind.equalsIgnoreCase(listName)){
-                        int index = names.indexOf(listName);
-                        String phone = phonesNumbers.get(index);
-
-                        System.out.println(listName+": "+phone);
-                    }
-                }
+                findData(names, phonesNumbers);
             }else if (menu == 0){
                 control = false;
             } else if (menu == 3) {
-                for (String nameList : names){
-                    System.out.println(nameList+": "+phonesNumbers.get(nameList.indexOf(nameList))+"\n -------------");
-                }
+                showAllDatas(phonesNumbers, names);
             }
+        }
+    }
+
+    public static void showMenu(){
+        System.out.println("Digite: " +
+                "\n 1 para adicionar nome e telefone " +
+                "\n 2 para buscar por nome " +
+                "\n 0 para sair " +
+                "\n 3 para ver lista completa");
+    }
+
+    public static void addDatas(List<String> names, List<String> phoNumber){
+        String nome = scanner("Digite o nome e sobrenome").nextLine();
+        if (!names.contains(nome)) names.add(nome);
+
+        String phoneNumber = scanner("Digite o digite o telefone").next();
+        phoneNumber = phoneNumber.replaceAll("-", "");
+
+        if (phoneNumber.length() == 11) {
+            if (!phoNumber.contains(phoneNumber)) {
+                phoNumber.add(phoneNumber);
+            }
+        } else {
+            System.out.println("Numero invalido");
+        }
+    }
+
+    public static void findData(List<String> names, List<String> phoneNumbers){
+        String nameToFind = scanner("Digite um nome para buscar").nextLine();
+        for(String listName : names){
+            if (nameToFind.equalsIgnoreCase(listName)){
+                int index = names.indexOf(listName);
+                String phone = phoneNumbers.get(index);
+
+                System.out.println(listName+": "+phone);
+            }
+        }
+    }
+
+    public static void showAllDatas(List<String> phoneNumbers, List<String> names){
+        for (String nameList : names){
+            System.out.println(nameList+": "+phoneNumbers.get(nameList.indexOf(nameList))+"\n -------------");
         }
     }
 
