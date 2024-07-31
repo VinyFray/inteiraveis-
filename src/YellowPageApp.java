@@ -17,21 +17,20 @@ public class YellowPageApp {
         // BUG 3 - Nomes não devem existir sem numero de telefone.
         // BUG 4 - Lista completa da errro de index não encontrado
 
-        List<String> names = new ArrayList<>();
-        List<String> phonesNumbers = new ArrayList<>();
+        Map<String, String> yellowPage = new HashMap<>();
 
         boolean control = true;
         while (control){
             showMenu();
             int menu = scanner("").nextInt();
             if(menu == 1) {
-                addDatas(names, phonesNumbers);
+                addDatas(yellowPage);
             } else if (menu == 2){
-                findData(names, phonesNumbers);
+                findData(yellowPage);
             }else if (menu == 0){
                 control = false;
             } else if (menu == 3) {
-                showAllDatas(phonesNumbers, names);
+                showAllDatas(yellowPage);
             }
         }
     }
@@ -44,38 +43,27 @@ public class YellowPageApp {
                 "\n 3 para ver lista completa");
     }
 
-    public static void addDatas(List<String> names, List<String> phoNumber){
+    public static void addDatas(Map<String, String> yellowPage){
         String nome = scanner("Digite o nome e sobrenome").nextLine();
-        if (!names.contains(nome)) names.add(nome);
-
         String phoneNumber = scanner("Digite o digite o telefone").next();
         phoneNumber = phoneNumber.replaceAll("-", "");
 
         if (phoneNumber.length() == 11) {
-            if (!phoNumber.contains(phoneNumber)) {
-                phoNumber.add(phoneNumber);
-            }
+            yellowPage.put(nome, phoneNumber);
         } else {
             System.out.println("Numero invalido");
         }
     }
 
-    public static void findData(List<String> names, List<String> phoneNumbers){
+    public static void findData(Map<String, String> yellowPage){
         String nameToFind = scanner("Digite um nome para buscar").nextLine();
-        for(String listName : names){
-            if (nameToFind.equalsIgnoreCase(listName)){
-                int index = names.indexOf(listName);
-                String phone = phoneNumbers.get(index);
-
-                System.out.println(listName+": "+phone);
-            }
+        if(yellowPage.containsKey(nameToFind)){
+            System.out.println(nameToFind+": "+yellowPage.get(nameToFind));
         }
     }
 
-    public static void showAllDatas(List<String> phoneNumbers, List<String> names){
-        for (String nameList : names){
-            System.out.println(nameList+": "+phoneNumbers.get(nameList.indexOf(nameList))+"\n -------------");
-        }
+    public static void showAllDatas(Map<String, String> yellowPage){
+        System.out.println(yellowPage);
     }
 
     public static Scanner scanner(String message){
